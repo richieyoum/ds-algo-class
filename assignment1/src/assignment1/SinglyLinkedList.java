@@ -1,8 +1,8 @@
 package assignment1;
 
-public class SinglyLinkedList<E> {
-    private Node<E> head = null;
-    private Node<E> tail = null;
+public class SinglyLinkedList {
+    private Node<String, Integer> head = null;
+    private Node<String, Integer> tail = null;
     private int size;
 
     // Constructor for SinglyLinkedList
@@ -20,51 +20,56 @@ public class SinglyLinkedList<E> {
 
     /**
      * Checks whether linked list is empty
-     * @return true if the linked list is empty, false otherwise
+     * @return boolean indicating whether list is empty
      */
     public boolean isEmpty(){
         return size == 0;
     }
 
     /**
-     * Returns first element of the list
-     * @return first element of the list, null if empty
+     * Returns list head node
+     * @return list head node
      */
-    public E getFirst(){
-        return !isEmpty() && head != null ? head.getElement() : null;
+    public Node getHeadNode(){
+        return head;
     }
 
     /**
-     * Returns last element of the list
-     * @return last element of the list, null if empty
+     * Returns list tail node
+     * @return list tail node
      */
-    public E getLast(){
-        return !isEmpty() && tail != null ? tail.getElement() : null;
+    public Node getTailNode(){
+        return tail;
     }
+
 
     //Update methods
     /**
-     * Add a new node to the front of the linked list
-     * @param newElem new element to add
+     * Add a new head node to the list. Should only be called when there is no existing node with the name yet
+     * @param name new bird name
      */
-    public void addFirst(E newElem){
-        // assigns the new head as current head, and points to the former head
-        this.head = new Node(newElem, head);
+    public void addHeadNode(String name){
+        // create new node with the given bird name
+        Node newNode = new Node(name, 1);
+        // point to the current head node
+        newNode.setNextNode(head);
+        // set the new node as head
+        head = newNode;
         // if list was empty, the head will also be a tail
         if (isEmpty()){
-            tail = head;
+            tail = newNode;
         }
         // increment the size
         size++;
     }
 
     /**
-     * Add a new node to the end of the linked list
-     * @param newElem new element to add
+     * Add a new tail node to the list. Should only be called when there is no existing node with the name yet
+     * @param name new bird name
      */
-    public void addLast(E newElem){
-        // create new node with the given data value
-        Node<E> newNode= new Node(newElem, null);
+    public void addTailNode(String name){
+        // create new node with the given bird name
+        Node newNode = new Node(name, 1);
         // if list was empty, the tail will also be a head
         if (isEmpty()){
             head = newNode;
@@ -80,13 +85,9 @@ public class SinglyLinkedList<E> {
     }
 
     /**
-     * Remove the header node
-     * @return value of the node that was removed
+     * Remove the head node
      */
-    public E removeFirst(){
-        if (isEmpty()) return null;
-        // store value of the to-be removed head node
-        E elemRemoved = head.getElement();
+    public void removeHeadNode(){
         // set head to the node previous head was pointing to. This effectively removes old head from list
         head = head.getNextNode();
         // decrement size
@@ -95,25 +96,20 @@ public class SinglyLinkedList<E> {
         if (isEmpty()){
             tail = null;
         }
-        return elemRemoved;
     }
 
     /**
      * Remove the tail node
-     * @return value of the node that was removed
      */
-    public E removeLast(){
-        if (isEmpty()) return null;
-        E elemRemoved = tail.getElement();
+    public void removeTailNode(){
         // set head and tail to null if there is only 1 element, which is to be removed
         if (size == 1){
             head = null;
             tail = null;
             size--;
-            return elemRemoved;
         }
         // iterate from head node to get the node just before the current tail
-        Node<E> prevNode = head;
+        Node prevNode = head;
         while (prevNode.getNextNode() != tail){
             prevNode = prevNode.getNextNode();
         }
@@ -122,42 +118,64 @@ public class SinglyLinkedList<E> {
         tail = prevNode;
         // decrement size
         size--;
-        return elemRemoved;
     }
 
 
+    // temporary check
+    public void printNodeItems(){
+        Node prevNode = head;
+        while (prevNode.getNextNode() != tail){
+            System.out.println(prevNode.getName() + " " + prevNode.getCount());
+            prevNode = prevNode.getNextNode();
+        }
+    }
+
+
+
+
     /**
-     * Node of singly linked list
+     * Node class for singly linked list.
      */
-    private static class Node<E>{
-        private E element;
-        private Node<E> nextNode;
+    private static class Node<N, C>{
+        private String name;
+        private int count;
+        private Node nextNode = null;
 
         // Constructor for Node class
-        public Node(E element, Node<E> nextNode){
+        public Node(String name, int count){
             /**
              * Constructor for Node class
              *
-             * @param element Data of the node
+             * @param name bird name
+             * @param count number of times the bird appeared
              * @param nextNode Pointer node. Can be null.
              */
-            this.element = element;
-            this.nextNode = nextNode;
+
+            this.name = name;
+            this.count = count;
         }
 
         /**
-         * Get the value of the node
-         * @return value of the node
+         * Get the bird name
+         * @return bird's name
          */
-        public E getElement() {
-            return element;
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * Get the bird appearance count
+         * @return bird appearance count
+         */
+        public int getCount(){
+            return count;
         }
 
         /**
          * Get the next node current node is pointing at. Can be null.
          * @return the node current node is pointing to
          */
-        public Node<E> getNextNode(){
+        public Node getNextNode(){
             return nextNode;
         }
 
@@ -165,7 +183,7 @@ public class SinglyLinkedList<E> {
          * Set node pointer to the new node. Can be null
          * @param newNode the node to point to
          */
-        public void setNextNode(Node<E> newNode){
+        public void setNextNode(Node newNode){
             this.nextNode = newNode;
         }
     }
