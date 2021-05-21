@@ -79,6 +79,10 @@ public class SinglyLinkedList<E> {
         size++;
     }
 
+    /**
+     * Remove the header node
+     * @return value of the node that was removed
+     */
     public E removeFirst(){
         if (isEmpty()) return null;
         // store value of the to-be removed head node
@@ -94,6 +98,10 @@ public class SinglyLinkedList<E> {
         return elemRemoved;
     }
 
+    /**
+     * Remove the tail node
+     * @return value of the node that was removed
+     */
     public E removeLast(){
         if (isEmpty()) return null;
         E elemRemoved = tail.getElement();
