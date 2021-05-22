@@ -120,7 +120,11 @@ public class SinglyLinkedList {
         size--;
     }
 
-
+    /**
+     * Handles new entry to the list.
+     * Increment count by 1 if the name already exists, if not creates a new tail node for the name.
+     * @param name name of the bird
+     */
     public void readEntry(String name){
         // iterate through each nodes until end of node (tail)
         Node tempNode = head;
@@ -155,8 +159,6 @@ public class SinglyLinkedList {
             i++;
         }
     }
-
-
 
 
     /**
