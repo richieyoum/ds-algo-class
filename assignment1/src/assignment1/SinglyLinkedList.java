@@ -1,5 +1,10 @@
 package assignment1;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class SinglyLinkedList {
     private Node head = null;
     private Node tail = null;
@@ -298,4 +303,43 @@ public class SinglyLinkedList {
          */
         public void setNextNode(Node newNode){ nextNode = newNode; }
     }
+
+    /**
+     * Get instance of buffered reader to read a file
+     * @param filepath file path
+     * @return BufferedReader object to the file
+     */
+    public static BufferedReader getBufferedReader(String filepath) {
+        try{
+            File file = new File(filepath);
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            return br;
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void main(String[] args) throws IOException{
+        // initialize the singly linked list
+        SinglyLinkedList list = new SinglyLinkedList();
+        // read file from directory
+        BufferedReader br = getBufferedReader("data/birds.txt");
+        // for each line, add the bird to the linked list
+        String line;
+        while ((line = br.readLine()) != null){
+            list.readEntry(line);
+        }
+        // print and check unordered output
+        System.out.println("Unordered output: ");
+        list.printNodeItems();
+
+        // sort the list in ascending order
+        list.sortList();
+
+        System.out.println("\n\nSorted output: ");
+        // print and check the sorted output
+        list.printNodeItems();
+    }
+
 }
