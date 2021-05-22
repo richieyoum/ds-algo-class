@@ -25,9 +25,15 @@ public class Main {
         while ((line = br.readLine()) != null){
             list.readEntry(line);
         }
+        // print and check unordered output
+        System.out.println("Unordered output: ");
+        list.printNodeItems();
 
+        // sort the list in ascending order
         list.sortList();
 
+        System.out.println("\n\nSorted output: ");
+        // print and check the sorted output
         list.printNodeItems();
     }
 
