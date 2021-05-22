@@ -130,11 +130,10 @@ public class SinglyLinkedList {
      * @param name name of the bird
      */
     public void readEntry(String name){
-        // iterate through each nodes until end of node (tail)
         Node tempNode = head;
         boolean nameExists = false;
         int i = 0;
-        // iterate through each element in the list
+        // iterate through each node in list
         while (i < size){
             if (isEmpty()) break;
             // increment count by 1 if name already exists in the list
@@ -149,6 +148,38 @@ public class SinglyLinkedList {
         // if name didn't exist yet, then create a new node and append it. Set count to 1.
         if (!nameExists) {
             addTailNode(name, 1);
+        }
+    }
+
+    /**
+     * Remove nodes that equals to the given name
+     * @param name entries with matching name to be excluded
+     */
+    public void removeEntry(String name){
+        if (!isEmpty()){
+            // start from the head node
+            Node prevNode = head;
+            // in order to successfully remove a node, we need to ensure the previous node is not to be excluded
+            while (prevNode.getName().equalsIgnoreCase(name)){
+                // skips until prevNode is not equal to entry to remove
+                prevNode = prevNode.getNextNode();
+                // decrement size by 1
+                size--;
+                // terminate loop if end of list (ie - every node was to be excluded)
+                if (prevNode==null) break;
+            }
+            // from the clean prevNode, check if the current node (called tempNode) is to be excluded
+            while(prevNode != null && prevNode.getNextNode() != null){
+                Node tempNode = prevNode.getNextNode();
+                // if current node is to be excluded, point the previous node to the node after
+                if (tempNode.getName().equalsIgnoreCase(name)){
+                    prevNode.setNextNode(tempNode.getNextNode());
+                    // decrement size by 1
+                    size--;
+                }
+                // move on to next node
+                prevNode = prevNode.getNextNode();
+            }
         }
     }
 
@@ -323,11 +354,14 @@ public class SinglyLinkedList {
     public static void main(String[] args) throws IOException{
         // initialize the singly linked list
         SinglyLinkedList list = new SinglyLinkedList();
-        // read file from directory
-        BufferedReader br = getBufferedReader("data/birds.txt");
+        // entry file buffered reader
+        BufferedReader br_data = getBufferedReader("data/birds.txt");
+        // exclusion file buffered reader
+        BufferedReader br_exclusion = getBufferedReader("data/birds2.txt");
+
         // for each line, add the bird to the linked list
         String line;
-        while ((line = br.readLine()) != null){
+        while ((line = br_data.readLine()) != null){
             list.readEntry(line);
         }
         // print and check unordered output
@@ -338,6 +372,13 @@ public class SinglyLinkedList {
         list.sortList();
 
         System.out.println("\n\nSorted output: ");
+        // print and check the sorted output
+        list.printNodeItems();
+
+        while ((line = br_exclusion.readLine()) != null){
+            list.removeEntry(line);
+        }
+        System.out.println("\n\nAfter exclusion: ");
         // print and check the sorted output
         list.printNodeItems();
     }
