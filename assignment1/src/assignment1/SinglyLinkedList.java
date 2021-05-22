@@ -48,9 +48,9 @@ public class SinglyLinkedList {
      * Add a new head node to the list. Should only be called when there is no existing node with the name yet
      * @param name new bird name
      */
-    public void addHeadNode(String name){
+    public void addHeadNode(String name, int count){
         // create new node with the given bird name
-        Node newNode = new Node(name, 1);
+        Node newNode = new Node(name, count);
         // point to the current head node
         newNode.setNextNode(head);
         // set the new node as head
@@ -120,7 +120,11 @@ public class SinglyLinkedList {
         size--;
     }
 
-
+    /**
+     * Handles new entry to the list.
+     * Increment count by 1 if the name already exists, if not creates a new tail node for the name.
+     * @param name name of the bird
+     */
     public void readEntry(String name){
         // iterate through each nodes until end of node (tail)
         Node tempNode = head;
@@ -155,8 +159,6 @@ public class SinglyLinkedList {
             i++;
         }
     }
-
-
 
 
     /**
