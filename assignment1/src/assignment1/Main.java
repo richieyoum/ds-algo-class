@@ -25,9 +25,10 @@ public class Main {
         while ((line = br.readLine()) != null){
             list.readEntry(line);
         }
+
+        list.sortList();
+
         list.printNodeItems();
     }
-
-
 
 }
