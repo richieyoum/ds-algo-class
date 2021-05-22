@@ -20,15 +20,12 @@ public class Main {
         SinglyLinkedList list = new SinglyLinkedList();
         // read file from directory
         BufferedReader br = getBufferedReader("data/birds.txt");
-        // TODO: add logic to check if data exists, then either increment the count or add new node
         // for each line, add the bird to the node
         String line;
         while ((line = br.readLine()) != null){
-            // temporary check
-            list.addTailNode(line);
+            list.readEntry(line);
         }
         list.printNodeItems();
-
     }
 
 

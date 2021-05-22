@@ -67,9 +67,9 @@ public class SinglyLinkedList {
      * Add a new tail node to the list. Should only be called when there is no existing node with the name yet
      * @param name new bird name
      */
-    public void addTailNode(String name){
+    public void addTailNode(String name, int count){
         // create new node with the given bird name
-        Node newNode = new Node(name, 1);
+        Node newNode = new Node(name, count);
         // if list was empty, the tail will also be a head
         if (isEmpty()){
             head = newNode;
@@ -118,6 +118,30 @@ public class SinglyLinkedList {
         tail = prevNode;
         // decrement size
         size--;
+    }
+
+
+    public void readEntry(String name){
+        // iterate through each nodes until end of node (tail)
+        Node tempNode = head;
+        int i = 0;
+        boolean nameExists = false;
+        // iterate through each element in the list
+        while (i < size){
+            // increment count by 1 if name already exists in the list
+            if (isEmpty()) break;
+            if (name.equalsIgnoreCase(tempNode.getName())){
+                tempNode.count++;
+                nameExists = true;
+                break;
+            }
+            tempNode = tempNode.getNextNode();
+            i++;
+        }
+        // if name didn't exist yet, then create a new node and append it. Set count to 1.
+        if (nameExists == false) {
+            addTailNode(name, 1);
+        }
     }
 
 
