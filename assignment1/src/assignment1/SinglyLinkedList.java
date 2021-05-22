@@ -123,10 +123,12 @@ public class SinglyLinkedList {
 
     // temporary check
     public void printNodeItems(){
-        Node prevNode = head;
-        while (prevNode.getNextNode() != tail){
-            System.out.println(prevNode.getName() + " " + prevNode.getCount());
-            prevNode = prevNode.getNextNode();
+        Node tempNode = head;
+        int i=0;
+        while (i < size){
+            System.out.println(tempNode.getName() + " " + tempNode.getCount());
+            tempNode = tempNode.getNextNode();
+            i++;
         }
     }
 

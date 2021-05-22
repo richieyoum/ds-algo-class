@@ -25,7 +25,7 @@ public class Main {
         String line;
         while ((line = br.readLine()) != null){
             // temporary check
-            list.addHeadNode(line);
+            list.addTailNode(line);
         }
         list.printNodeItems();
 
