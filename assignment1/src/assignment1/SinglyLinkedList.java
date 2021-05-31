@@ -4,7 +4,7 @@ package assignment1;
  *  (63c + 12c + 7c + 3c + 8c + 20c + 3c + 14c) + (O(n) + O(n) + O(2n) + O(n) + O(n) + O(2n)) + O(log n) + O(n log n) = 
  *  
  *  We get rid of constants, and are left with O(n) + O(log n) + O(n log n)
- *  As O(log n) < O(n log n) < O(n), Tc = O(log n)
+ *  As O(log n) < O(n) < O(n log n), Tc = O(n log n)
  */
 
 
