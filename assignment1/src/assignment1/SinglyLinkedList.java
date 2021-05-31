@@ -1,7 +1,10 @@
 package assignment1;
 /*	Count of method operations.
- * 	3c + 1c + 1c + 1c + 
- * 
+ * 	63c + (12c + O(n)) + (7c + O(n)) + (3c + O(2n)) + (8c + O(n)) + O(log n) + O(n log n) + (3c O(n)) + (14c + O(2n)) =
+ *  (63c + 12c + 7c + 3c + 8c + 20c + 3c + 14c) + (O(n) + O(n) + O(2n) + O(n) + O(n) + O(2n)) + O(log n) + O(n log n) = 
+ *  
+ *  We get rid of constants, and are left with O(n) + O(log n) + O(n log n)
+ *  As O(log n) < O(n log n) < O(n), Tc = O(log n)
  */
 
 
@@ -25,7 +28,7 @@ public class SinglyLinkedList {
      * @return number of elements in the linked list
      */
     public int getSize(){
-    	// 1 operation, constant
+    	// Tc = 1c
         return size;
     }
 
@@ -33,7 +36,7 @@ public class SinglyLinkedList {
      * @return boolean indicating whether list is empty
      */
     public boolean isEmpty(){
-    	// 1 operation, constant
+    	// Tc = 1ct
         return size == 0;
     }
 
@@ -41,7 +44,7 @@ public class SinglyLinkedList {
      * @return list head node
      */
     public Node getHeadNode(){
-    	// 1 operation , constant
+    	// Tc = 1c
         return head;
     }
 
@@ -49,7 +52,7 @@ public class SinglyLinkedList {
      * @return list tail node
      */
     public Node getTailNode(){
-    	// 1 operation, constant
+    	// Tc = 1c
         return tail;
     }
 
@@ -59,7 +62,7 @@ public class SinglyLinkedList {
      * @param name new bird name
      */
     public void addHeadNode(String name, int count){
-    	// addHeadNode: 11c
+    	// addHeadNode: Tc = 11c
         // create new node with the given bird name
     	// get value of name and count, create a new node, assign it to newNode
         Node newNode = new Node(name, count);
@@ -83,7 +86,7 @@ public class SinglyLinkedList {
      * @param name new bird name
      */
     public void addTailNode(String name, int count){
-    	// addTailNode: 12c
+    	// addTailNode: Tc = 12c
         // create new node with the given bird name
         Node newNode = new Node(name, count);
         
@@ -105,7 +108,7 @@ public class SinglyLinkedList {
      * Remove the head node
      */
     public void removeHeadNode(){
-    	// removeHeadNode: 7c
+    	// removeHeadNode: Tc = 7c
         // set head to the node previous head was pointing to. This effectively removes old head from list
         head = head.getNextNode();
         // decrement the size of the list
@@ -120,7 +123,7 @@ public class SinglyLinkedList {
      * Remove the tail node
      */
     public void removeTailNode(){
-    	// removeTailNode: 12c + O(n)
+    	// removeTailNode: Tc = O(n)
         // set head and tail to null if there is only 1 element, which is to be removed
         if (size == 1){
             head = null;
@@ -145,7 +148,7 @@ public class SinglyLinkedList {
      * @param name name of the bird
      */
     public void readEntry(String name){
-    	// readEntry: 7c + O(n)
+    	// readEntry: Tc = O(n)
     	// we need to start at the beginning of the list, so read the head
         Node tempNode = head;
         boolean nameExists = false;
@@ -174,7 +177,7 @@ public class SinglyLinkedList {
      * @param name entries with matching name to be excluded
      */
     public void removeEntry(String name){
-    	// removeEntry: 3c + O(2n)
+    	// removeEntry: Tc = O(2n) = O(n)
         if (!isEmpty()){
             // start from the head node
             Node prevNode = head;
@@ -209,7 +212,7 @@ public class SinglyLinkedList {
      * @return middle node of the linked list
      */
     private Node getMiddleNode(Node tempHead){
-    	// getMiddleNode: 8c + O(n)
+    	// getMiddleNode: Tc = O(log n)
         // return null in the case given head (or its next item) is null. Happens when the specific list has no element
         // or only contains 1 element
         if (tempHead == null || tempHead.getNextNode() == null) return null;
@@ -234,7 +237,7 @@ public class SinglyLinkedList {
      * @return merged	: node from left and right nodes in ascending order
      */
     private Node sortedMerge(Node left, Node right){
-    	// sortedMerge: 20c OR O(Log(n))
+    	// sortedMerge: O(n)
         // recursion call to sort is completed, it'll get null on either of the node; return the other node in such case
         if (left == null) return right;
         if (right == null) return left;
@@ -263,7 +266,7 @@ public class SinglyLinkedList {
      * @return sorted linked list
      */
     private Node mergeSort(Node tempHead){
-    	// mergeSort: O(log n)
+    	// mergeSort: Tc = O(n log n)
         // no need to sort when list is empty or only 1 element
         if (tempHead == null || tempHead.getNextNode() == null) return tempHead;
 
