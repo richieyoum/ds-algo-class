@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class SinglyLinkedList {
-	// 3 operations, constant
+	// Tc = 3c
     private Node head = null;
     private Node tail = null;
     private int size;
@@ -29,7 +29,7 @@ public class SinglyLinkedList {
      * @return boolean indicating whether list is empty
      */
     public boolean isEmpty(){
-    	// Tc = 1ct
+    	// Tc = 1c
         return size == 0;
     }
 
@@ -392,7 +392,7 @@ public class SinglyLinkedList {
     	 *  We get rid of constants, and are left with O(n) + O(log n) + O(n log n)
     	 *  As O(log n) < O(n) < O(n log n), Tc = O(n log n)
     	 *  
-    	 *  Seeing as looking at Tc is the highest of the lows, Tc = O(n log n) would be our time complexity for the program.
+    	 *  Seeing as looking at Tc is the highest of the lows, Tc = O(n log n) would be our time complexity for the program. 
     	 */
     	
     	// main: 14c + O(2n)
