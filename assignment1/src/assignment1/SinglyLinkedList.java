@@ -1,11 +1,4 @@
 package assignment1;
-/*	Count of method operations.
- * 	63c + (12c + O(n)) + (7c + O(n)) + (3c + O(2n)) + (8c + O(n)) + O(log n) + O(n log n) + (3c O(n)) + (14c + O(2n)) =
- *  (63c + 12c + 7c + 3c + 8c + 20c + 3c + 14c) + (O(n) + O(n) + O(2n) + O(n) + O(n) + O(2n)) + O(log n) + O(n log n) = 
- *  
- *  We get rid of constants, and are left with O(n) + O(log n) + O(n log n)
- *  As O(log n) < O(n) < O(n log n), Tc = O(n log n)
- */
 
 
 import java.io.BufferedReader;
@@ -392,6 +385,16 @@ public class SinglyLinkedList {
     }
 
     public static void main(String[] args) throws IOException{
+    	/*	Count of method operations in main method
+    	 * 	63c + (12c + O(n)) + (7c + O(n)) + (3c + O(2n)) + (8c + O(n)) + O(log n) + O(n log n) + (3c O(n)) + (14c + O(2n)) =
+    	 *  (63c + 12c + 7c + 3c + 8c + 20c + 3c + 14c) + (O(n) + O(n) + O(2n) + O(n) + O(n) + O(2n)) + O(log n) + O(n log n) = 
+    	 *  
+    	 *  We get rid of constants, and are left with O(n) + O(log n) + O(n log n)
+    	 *  As O(log n) < O(n) < O(n log n), Tc = O(n log n)
+    	 *  
+    	 *  Seeing as looking at Tc is the highest of the lows, Tc = O(n log n) would be our time complexity for the program.
+    	 */
+    	
     	// main: 14c + O(2n)
         // initialize the singly linked list
         SinglyLinkedList list = new SinglyLinkedList();
