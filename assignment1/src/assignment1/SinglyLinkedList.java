@@ -174,7 +174,7 @@ public class SinglyLinkedList {
      * @param name entries with matching name to be excluded
      */
     public void removeEntry(String name){
-    	// removeEntry: Tc = O(2n) = O(n)
+    	// removeEntry: Tc = O(n)
         if (!isEmpty()){
             // start from the head node
             Node prevNode = head;
