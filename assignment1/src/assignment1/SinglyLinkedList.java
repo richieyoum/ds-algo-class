@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class SinglyLinkedList {
-	// Tc = 3c
+	// Tc = O(n log n) (please see Main call for explanation)
     private Node head = null;
     private Node tail = null;
     private int size;
@@ -18,34 +18,38 @@ public class SinglyLinkedList {
 
     // Access methods
     /**
+     * Returns number of elements in linked list
      * @return number of elements in the linked list
      */
     public int getSize(){
-    	// Tc = 1c
+    	// Tc = O(1)
         return size;
     }
 
     /**
+     * Checks whether linked list is empty
      * @return boolean indicating whether list is empty
      */
     public boolean isEmpty(){
-    	// Tc = 1c
+    	// Tc = O(1)
         return size == 0;
     }
 
     /**
+     * Returns list head node
      * @return list head node
      */
     public Node getHeadNode(){
-    	// Tc = 1c
+    	// Tc = O(1)
         return head;
     }
 
     /**
+     * Returns list tal node
      * @return list tail node
      */
     public Node getTailNode(){
-    	// Tc = 1c
+    	// Tc = O(1)
         return tail;
     }
 
@@ -55,7 +59,7 @@ public class SinglyLinkedList {
      * @param name new bird name
      */
     public void addHeadNode(String name, int count){
-    	// addHeadNode: Tc = 11c
+    	// addHeadNode: Tc = O(1)
         // create new node with the given bird name
     	// get value of name and count, create a new node, assign it to newNode
         Node newNode = new Node(name, count);
@@ -79,7 +83,7 @@ public class SinglyLinkedList {
      * @param name new bird name
      */
     public void addTailNode(String name, int count){
-    	// addTailNode: Tc = 12c
+    	// addTailNode: Tc = O(1)
         // create new node with the given bird name
         Node newNode = new Node(name, count);
         
@@ -101,7 +105,7 @@ public class SinglyLinkedList {
      * Remove the head node
      */
     public void removeHeadNode(){
-    	// removeHeadNode: Tc = 7c
+    	// removeHeadNode: Tc = O(1)
         // set head to the node previous head was pointing to. This effectively removes old head from list
         head = head.getNextNode();
         // decrement the size of the list
@@ -225,9 +229,9 @@ public class SinglyLinkedList {
 
     /**
      * Recursive calls to sort all items between the two linked list, and then merge them together
-     * @param left		: a node to be compared with right node
-     * @param right 	: a node to be compared with left node
-     * @return merged	: node from left and right nodes in ascending order
+     * @param left: a node to be compared with right node
+     * @param right: a node to be compared with left node
+     * @return merged: node from left and right nodes in ascending order
      */
     private Node sortedMerge(Node left, Node right){
     	// sortedMerge: O(n)
@@ -283,7 +287,7 @@ public class SinglyLinkedList {
      * Merge sort the current linked list
      */
     public void sortList(){
-    	// sortList: 3c
+    	// sortList: O(1)
         // set the head to the sorted list
         head = mergeSort(head);
     }
@@ -292,7 +296,7 @@ public class SinglyLinkedList {
      * Print the linked list items
      */
     public void printNodeItems(){
-    	// printNodeItems: 3c + 0(n)
+    	// printNodeItems: O(n)
     	// need to start at the beginning of the list
         Node tempNode = head;
         int i=0;
@@ -307,7 +311,7 @@ public class SinglyLinkedList {
      * Node class for singly linked list.
      */
     private static class Node{
-    	// Node: 4c
+    	// Node: O(1)
 
         private String name;
         private int count;
@@ -320,7 +324,7 @@ public class SinglyLinkedList {
          * @param count number of times the bird appeared
          */
         public Node(String name, int count){
-        	// Node: 4c
+        	// Node: O(1)
             this.name = name;
             this.count = count;
         }
@@ -330,7 +334,7 @@ public class SinglyLinkedList {
          * @return bird's name
          */
         public String getName() {
-        	// getName: 1c
+        	// getName: O(1)
             return name;
         }
 
@@ -339,29 +343,29 @@ public class SinglyLinkedList {
          * @return bird appearance count
          */
         public int getCount(){
-        	// getCount: 1c
+        	// getCount: O(1)
             return count;
         }
 
         /**
          * Increment the count of the node by 1
-         * incrementCount: 2c
          */
+        // incrementCount: O(1)
         public void incrementCount() { count++; }
 
         /**
          * Get the next node current node is pointing to. Can be null.
          *
          * @return the node current node is pointing to
-         * getNextNode: 1c
          */
+        // getNextNode: O(1)
         public Node getNextNode(){ return nextNode; }
 
         /**
          * Set node pointer to the new node. Can be null
          * @param newNode the node to point to
-         * setNextNode: 2c
          */
+        // setNextNode: O(1)
         public void setNextNode(Node newNode){ nextNode = newNode; }
     }
 
@@ -371,7 +375,7 @@ public class SinglyLinkedList {
      * @return BufferedReader object to the file
      */
     public static BufferedReader getBufferedReader(String filepath) {
-    	// BufferedReader: 9c
+    	// BufferedReader: O(1)
         try{
             File file = new File(filepath);
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -386,16 +390,16 @@ public class SinglyLinkedList {
 
     public static void main(String[] args) throws IOException{
     	/*	Count of method operations in main method
-    	 * 	63c + (12c + O(n)) + (7c + O(n)) + (3c + O(2n)) + (8c + O(n)) + O(log n) + O(n log n) + (3c O(n)) + (14c + O(2n)) =
-    	 *  (63c + 12c + 7c + 3c + 8c + 20c + 3c + 14c) + (O(n) + O(n) + O(2n) + O(n) + O(n) + O(2n)) + O(log n) + O(n log n) = 
+    	 *  O(1) + O(1) + O(1) + O(1) + O(1) + O(1) + O(1) + O(n) + O(n) + O(n) + O(log n) + O(n) + O(n log n) + O(1) + O(n) +
+    	 *  O(1) + O(1) + O(1) + O(1) + O(1) + O(1) + O(1) + O(1) + O(n) =
     	 *  
-    	 *  We get rid of constants, and are left with O(n) + O(log n) + O(n log n)
-    	 *  As O(log n) < O(n) < O(n log n), Tc = O(n log n)
+    	 *  We don't need to show counts of each, and are left with: O(1) + O(log n) + O(n) + O(n log n)
+    	 *  So: O(1) < O(log n) < O(n) < O(n log n)
     	 *  
-    	 *  Seeing as looking at Tc is the highest of the lows, Tc = O(n log n) would be our time complexity for the program. 
+    	 *  Seeing as looking at Tc is the highest of the worst cases, Tc = O(n log n) would be our time complexity for the program.
     	 */
     	
-    	// main: 14c + O(2n)
+    	// main: O(n)
         // initialize the singly linked list
         SinglyLinkedList list = new SinglyLinkedList();
         // entry file buffered reader
