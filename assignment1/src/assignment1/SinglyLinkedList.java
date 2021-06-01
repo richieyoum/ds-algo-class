@@ -1,11 +1,13 @@
 package assignment1;
 
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class SinglyLinkedList {
+	// Tc = O(n log n) (please see Main call for explanation)
     private Node head = null;
     private Node tail = null;
     private int size;
@@ -20,6 +22,7 @@ public class SinglyLinkedList {
      * @return number of elements in the linked list
      */
     public int getSize(){
+    	// Tc = O(1)
         return size;
     }
 
@@ -28,6 +31,7 @@ public class SinglyLinkedList {
      * @return boolean indicating whether list is empty
      */
     public boolean isEmpty(){
+    	// Tc = O(1)
         return size == 0;
     }
 
@@ -36,6 +40,7 @@ public class SinglyLinkedList {
      * @return list head node
      */
     public Node getHeadNode(){
+    	// Tc = O(1)
         return head;
     }
 
@@ -44,6 +49,7 @@ public class SinglyLinkedList {
      * @return list tail node
      */
     public Node getTailNode(){
+    	// Tc = O(1)
         return tail;
     }
 
@@ -53,17 +59,22 @@ public class SinglyLinkedList {
      * @param name new bird name
      */
     public void addHeadNode(String name, int count){
+    	// addHeadNode: Tc = O(1)
         // create new node with the given bird name
+    	// get value of name and count, create a new node, assign it to newNode
         Node newNode = new Node(name, count);
+        
         // point to the current head node
         newNode.setNextNode(head);
-        // set the new node as head
+        
+        // set the newly created node as head
         head = newNode;
-        // if list was empty, the head will also be a tail
+        
+        // if list was empty, the head (aka: the newly created node) will also be a tail
         if (isEmpty()){
             tail = newNode;
         }
-        // increment the size
+        // increment the size of the list
         size++;
     }
 
@@ -72,19 +83,21 @@ public class SinglyLinkedList {
      * @param name new bird name
      */
     public void addTailNode(String name, int count){
+    	// addTailNode: Tc = O(1)
         // create new node with the given bird name
         Node newNode = new Node(name, count);
+        
         // if list was empty, the tail will also be a head
         if (isEmpty()){
             head = newNode;
         }
-        // otherwise point the previous tail to the new node
+        // otherwise point the previous tail to the newly created node
         else{
             tail.setNextNode(newNode);
         }
-        // set the new node as the tail
+        // set the newly created node as the tail
         tail = newNode;
-        // increment the size
+        // increment the size of the list
         size++;
     }
 
@@ -92,9 +105,10 @@ public class SinglyLinkedList {
      * Remove the head node
      */
     public void removeHeadNode(){
+    	// removeHeadNode: Tc = O(1)
         // set head to the node previous head was pointing to. This effectively removes old head from list
         head = head.getNextNode();
-        // decrement size
+        // decrement the size of the list
         size--;
         // if head node was the only item, then set tail to null as well
         if (isEmpty()){
@@ -106,6 +120,7 @@ public class SinglyLinkedList {
      * Remove the tail node
      */
     public void removeTailNode(){
+    	// removeTailNode: Tc = O(n)
         // set head and tail to null if there is only 1 element, which is to be removed
         if (size == 1){
             head = null;
@@ -120,7 +135,7 @@ public class SinglyLinkedList {
         // untie the pointer to the current tail, then make that node as new tail
         prevNode.setNextNode(null);
         tail = prevNode;
-        // decrement size
+        // decrement the size of the list
         size--;
     }
 
@@ -130,11 +145,14 @@ public class SinglyLinkedList {
      * @param name name of the bird
      */
     public void readEntry(String name){
+    	// readEntry: Tc = O(n)
+    	// we need to start at the beginning of the list, so read the head
         Node tempNode = head;
         boolean nameExists = false;
         int i = 0;
         // iterate through each node in list
         while (i < size){
+        	// if the list is empty we don't need to be reading through it
             if (isEmpty()) break;
             // increment count by 1 if name already exists in the list
             if (name.equalsIgnoreCase(tempNode.getName())){
@@ -145,17 +163,18 @@ public class SinglyLinkedList {
             tempNode = tempNode.getNextNode();
             i++;
         }
-        // if name didn't exist yet, then create a new node and append it. Set count to 1.
+        // if the name doesn't exist in the list, then create a new node and append it. Set its view count to 1.
         if (!nameExists) {
             addTailNode(name, 1);
         }
     }
 
     /**
-     * Remove nodes that equals to the given name
+     * Remove nodes that equals to the given name. This is for birds2.txt, and removing the non-indigenous birds from the list
      * @param name entries with matching name to be excluded
      */
     public void removeEntry(String name){
+    	// removeEntry: Tc = O(n)
         if (!isEmpty()){
             // start from the head node
             Node prevNode = head;
@@ -163,10 +182,10 @@ public class SinglyLinkedList {
             while (prevNode.getName().equalsIgnoreCase(name)){
                 // skips until prevNode is not equal to entry to remove
                 prevNode = prevNode.getNextNode();
-                // decrement size by 1
+                // decrement the list size by 1
                 size--;
                 // terminate loop if end of list (ie - every node was to be excluded)
-                if (prevNode==null) break;
+                if (prevNode == null) break;
             }
             // from the clean prevNode, check if the current node (called tempNode) is to be excluded
             while(prevNode != null && prevNode.getNextNode() != null){
@@ -174,7 +193,7 @@ public class SinglyLinkedList {
                 // if current node is to be excluded, point the previous node to the node after
                 if (tempNode.getName().equalsIgnoreCase(name)){
                     prevNode.setNextNode(tempNode.getNextNode());
-                    // decrement size by 1
+                    // decrement the list size by 1
                     size--;
                 }
                 // move on to next node
@@ -190,15 +209,18 @@ public class SinglyLinkedList {
      * @return middle node of the linked list
      */
     private Node getMiddleNode(Node tempHead){
+    	// getMiddleNode: Tc = O(log n)
         // return null in the case given head (or its next item) is null. Happens when the specific list has no element
         // or only contains 1 element
         if (tempHead == null || tempHead.getNextNode() == null) return null;
         // assign two nodes starting from head
         Node slow = tempHead; Node fast = tempHead;
-        // fast node moves twice as fast than slow node. This way, by the time it reaches end of list,
+        // fast node moves twice as fast as the slow node. This way, by the time it reaches end of list,
         // slow node will be approximately at the middle of the linked list
         while (fast.getNextNode() != null && fast.getNextNode().getNextNode() != null){
+        	// slow moves one node
             slow = slow.getNextNode();
+            // fast moves two nodes
             fast = fast.getNextNode().getNextNode();
         }
         // return the middle node
@@ -207,11 +229,12 @@ public class SinglyLinkedList {
 
     /**
      * Recursive calls to sort all items between the two linked list, and then merge them together
-     * @param left a node to be compared with right node
-     * @param right a node to be compared with left node
-     * @return merged node from left and right nodes in ascending order
+     * @param left: a node to be compared with right node
+     * @param right: a node to be compared with left node
+     * @return merged: node from left and right nodes in ascending order
      */
     private Node sortedMerge(Node left, Node right){
+    	// sortedMerge: O(n)
         // recursion call to sort is completed, it'll get null on either of the node; return the other node in such case
         if (left == null) return right;
         if (right == null) return left;
@@ -240,6 +263,7 @@ public class SinglyLinkedList {
      * @return sorted linked list
      */
     private Node mergeSort(Node tempHead){
+    	// mergeSort: Tc = O(n log n)
         // no need to sort when list is empty or only 1 element
         if (tempHead == null || tempHead.getNextNode() == null) return tempHead;
 
@@ -263,6 +287,7 @@ public class SinglyLinkedList {
      * Merge sort the current linked list
      */
     public void sortList(){
+    	// sortList: O(1)
         // set the head to the sorted list
         head = mergeSort(head);
     }
@@ -271,6 +296,8 @@ public class SinglyLinkedList {
      * Print the linked list items
      */
     public void printNodeItems(){
+    	// printNodeItems: O(n)
+    	// need to start at the beginning of the list
         Node tempNode = head;
         int i=0;
         while (i < size){
@@ -284,6 +311,8 @@ public class SinglyLinkedList {
      * Node class for singly linked list.
      */
     private static class Node{
+    	// Node: O(1)
+
         private String name;
         private int count;
         private Node nextNode = null;
@@ -295,6 +324,7 @@ public class SinglyLinkedList {
          * @param count number of times the bird appeared
          */
         public Node(String name, int count){
+        	// Node: O(1)
             this.name = name;
             this.count = count;
         }
@@ -304,34 +334,38 @@ public class SinglyLinkedList {
          * @return bird's name
          */
         public String getName() {
+        	// getName: O(1)
             return name;
         }
 
         /**
          * Get the bird appearance count
-         *
          * @return bird appearance count
          */
         public int getCount(){
+        	// getCount: O(1)
             return count;
         }
 
         /**
          * Increment the count of the node by 1
          */
+        // incrementCount: O(1)
         public void incrementCount() { count++; }
 
         /**
-         * Get the next node current node is pointing at. Can be null.
+         * Get the next node current node is pointing to. Can be null.
          *
          * @return the node current node is pointing to
          */
+        // getNextNode: O(1)
         public Node getNextNode(){ return nextNode; }
 
         /**
          * Set node pointer to the new node. Can be null
          * @param newNode the node to point to
          */
+        // setNextNode: O(1)
         public void setNextNode(Node newNode){ nextNode = newNode; }
     }
 
@@ -341,17 +375,31 @@ public class SinglyLinkedList {
      * @return BufferedReader object to the file
      */
     public static BufferedReader getBufferedReader(String filepath) {
+    	// BufferedReader: O(1)
         try{
             File file = new File(filepath);
             BufferedReader br = new BufferedReader(new FileReader(file));
             return br;
         } catch (IOException e){
+        	// if there is a problem reading the file, print out the line number/method
+        	// where the error occured for debugging
             e.printStackTrace();
         }
         return null;
     }
 
     public static void main(String[] args) throws IOException{
+    	/*	Count of method operations in main method
+    	 *  O(1) + O(1) + O(1) + O(1) + O(1) + O(1) + O(1) + O(n) + O(n) + O(n) + O(log n) + O(n) + O(n log n) + O(1) + O(n) +
+    	 *  O(1) + O(1) + O(1) + O(1) + O(1) + O(1) + O(1) + O(1) + O(n) =
+    	 *  
+    	 *  We don't need to show counts of each, and are left with: O(1) + O(log n) + O(n) + O(n log n)
+    	 *  So: O(1) < O(log n) < O(n) < O(n log n)
+    	 *  
+    	 *  Seeing as looking at Tc is the highest of the worst cases, Tc = O(n log n) would be our time complexity for the program.
+    	 */
+    	
+    	// main: O(n)
         // initialize the singly linked list
         SinglyLinkedList list = new SinglyLinkedList();
         // entry file buffered reader
@@ -370,11 +418,9 @@ public class SinglyLinkedList {
 
         // sort the list in ascending order
         list.sortList();
-
         System.out.println("\n\nSorted output: ");
         // print and check the sorted output
         list.printNodeItems();
-
         while ((line = br_exclusion.readLine()) != null){
             list.removeEntry(line);
         }
@@ -382,5 +428,4 @@ public class SinglyLinkedList {
         // print and check the sorted output
         list.printNodeItems();
     }
-
 }
