@@ -45,7 +45,7 @@ public class SinglyLinkedList {
     }
 
     /**
-     * Returns list tal node
+     * Returns list tail node
      * @return list tail node
      */
     public Node getTailNode(){
