@@ -1,5 +1,9 @@
 package assignment1;
-
+/**
+*	Richie Youm: 260749847
+*	Karim Beainy: 260180600
+*	Matthew Curiale: 260066164
+*/	
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,7 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class SinglyLinkedList {
-	// Tc = O(n log n) (please see Main call for explanation)
+	// Tc = O(n log n) (please see Main call for explanation, line 395)
     private Node head = null;
     private Node tail = null;
     private int size;
