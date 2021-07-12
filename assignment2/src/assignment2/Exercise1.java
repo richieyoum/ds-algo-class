@@ -36,23 +36,33 @@ public class Exercise1 {
      * @return a merged array from the two sorted arrays
      */
     public static int[] merge(int[] left, int[] right){
+        // nothing to merge if one side of array is null
         if (left == null) return right;
         if (right == null) return left;
+
+        // length of left and right arrays
         int leftLen = left.length;
         int rightLen = right.length;
+        // instantiate new array for merged result
         int[] merged = new int[leftLen + rightLen];
 
+        // initialize index of the merged array, left array, and right array
         int i = 0, l = 0, r = 0;
-        while (l < leftLen && r < rightLen && i < leftLen + rightLen){
+        // repeat until either left or right array is exhausted
+        while (l < leftLen && r < rightLen){
             if (left[l] <= right[r]){
+                // push left side if left is smaller (ascending order), and increment left index
                 merged[i] = left[l];
                 l++;
             } else{
+                // push right side if right is smaller (ascending order), and increment right index
                 merged[i] = right[r];
                 r++;
             }
+            // increment merged array index
             i++;
         }
+        // push the rest of elements if either side of array still has some elements left.
         while (l < leftLen){
             merged[i] = left[l];
             l++;
