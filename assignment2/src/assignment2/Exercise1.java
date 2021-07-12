@@ -2,17 +2,6 @@ package assignment2;
 
 public class Exercise1 {
     /**
-     * helper function to print integer array
-     * @param arr an array to print
-     */
-    public static void printArr(int[] arr){
-        for (int i=0; i<arr.length; i++){
-            System.out.print(arr[i] + " ");
-        }
-        System.out.println();
-    }
-
-    /**
      * Implementation of merge sort. Mergesort algorithm's time complexity is O(n log n)
      * @param arr array to sort
      * @return sorted array
@@ -77,10 +66,28 @@ public class Exercise1 {
         return merged;
     }
 
-    public static void main(String[] args){
-        int[] arr = {21,11,5,3,10,7,9};
+    /**
+     * Compute sum of k largest numbers in the array
+     * @param arr array to select elements from
+     * @param k number of largest elements to sum
+     * @return sum of k largest numbers in the array
+     */
+    public static int kLargestSum(int[] arr, int k){
+        // initialize sum variable
+        int sum = 0;
+        // output of mergesort
         int[] sorted = mergeSort(arr);
-        printArr(sorted);
+        // since array is in ascending order, sum the last k numbers
+        for (int i=sorted.length-1; i>=sorted.length-k; i--){
+            sum += sorted[i];
+        }
+        return sum;
+    }
+
+    public static void main(String[] args){
+        int k = 3;
+        int[] arr = {3,7,5,12,6};
+        System.out.println(kLargestSum(arr, k));
     }
 }
 
